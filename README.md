@@ -12,7 +12,7 @@ This repository is a "composite" GitHub Action step that builds a [Primer Spec](
 # GitHub Pages Configuration
 #
 # This workflow builds your repository's website and deploys it using GitHub Pages.
-name: Deploy spec website
+name: Deploy website with GitHub Pages
 
 on:
   # Run on all pushes to main.
