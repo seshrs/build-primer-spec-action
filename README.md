@@ -47,10 +47,8 @@ jobs:
       - name: 📁 Checkout code
         uses: actions/checkout@v2
 
-      # Build the Jekyll site. This GH action from the marketplace is
-      # indirectly endorsed by Jekyll, and simply builds the Jekyll site
-      # without deploying it. The Jekyll build output is placed in an `_site/`
-      # directory.
+      # Build the Primer Spec website. The action places the fully-built
+      # website in an `_site/` directory.
       # Docs: https://github.com/seshrs/build-primer-spec-action
       - name: 🛠 Build Primer Spec website
         uses: seshrs/build-primer-spec-action
