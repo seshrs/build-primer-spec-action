@@ -1,0 +1,22 @@
+name: "Build Primer Spec"
+description: "Build a Primer Spec website using Jekyll. The output is placed in a directory '_site/'."
+runs:
+  using: "composite"
+  steps:
+    # A Ruby environment is required to build Jekyll websites. Use the
+    # official GH action provided by Ruby.
+    # Docs: https://github.com/ruby/setup-ruby
+    - name: 💎 Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "3.0"
+
+    # Build the Jekyll site. This GH action from the marketplace is
+    # indirectly endorsed by Jekyll, and simply builds the Jekyll site
+    # without deploying it. The Jekyll build output is placed in an `_site/`
+    # directory.
+    # Docs: https://github.com/limjh16/jekyll-action-ts
+    - name: 🛠 Build Jekyll site
+      uses: limjh16/jekyll-action-ts@v2
+      with:
+        enable_cache: true
