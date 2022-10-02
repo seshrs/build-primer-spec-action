@@ -31,6 +31,9 @@ runs:
       shell: bash
       # Keep this in sync with ./generate-pdfs
       run: |
+        echo ""
+        echo "CREATING PDFs..."
+        echo ""
         grep -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html | while read -r file
         do
           relativePath=${file#_site/}
@@ -38,7 +41,9 @@ runs:
           pdfFileDir=${pdfFile%/*}
           echo "Source: $file"
           echo "Dest: $pdfFile"
+          echo "In directory: $pdfFileDir"
           echo ""
           mkdir -p $pdfFileDir
-          chrome --headless --disable-gpu --run-all-compositor-stages-before-draw --print-to-pdf-no-header --print-to-pdf=="$pdfFile" $file
+          # chrome --headless --disable-gpu --run-all-compositor-stages-before-draw --print-to-pdf-no-header --print-to-pdf=="$pdfFile" $file
+          chrome --headless --print-to-pdf=="$pdfFile" $file
         done
