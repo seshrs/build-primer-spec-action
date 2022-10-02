@@ -20,3 +20,13 @@ runs:
       uses: limjh16/jekyll-action-ts@v2
       with:
         enable_cache: true
+
+    # Install Chromedriver. We'll use this to generate PDFs.
+    # Docs: https://github.com/browser-actions/setup-chrome
+    - name: 🕸 Setup Chromedriver
+      uses: browser-actions/setup-chrome@latest
+
+    # Generate PDFs for each Primer Spec HTML page in _site/
+    - name: 📑 Generate PDFs
+      run: |
+        ./generate-pdfs
