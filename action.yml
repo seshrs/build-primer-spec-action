@@ -28,5 +28,6 @@ runs:
 
     # Generate PDFs for each Primer Spec HTML page in _site/
     - name: 📑 Generate PDFs
+      shell: bash
       run: |
         ./generate-pdfs
