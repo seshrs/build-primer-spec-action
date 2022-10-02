@@ -31,8 +31,8 @@ runs:
       shell: bash
       # Keep this in sync with ./generate-pdfs
       run: |
-        primerSpecFiles=$(grep -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html)
-        for file in $primerSpecFiles; do
+        grep -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html | while read -r file
+        do
           relativePath=${file#_site/}
           pdfFile="_site/assets/primer-spec-pdf/${relativePath%.html}.pdf"
           pdfFileDir=${pdfFile%/*}
@@ -40,5 +40,5 @@ runs:
           echo "Dest: $pdfFile"
           echo ""
           mkdir -p $pdfFileDir
-          chrome --headless --print-to-pdf="$pdfFile" $file
+          chrome --headless --run-all-compositor-stages-before-draw --print-to-pdf-no-header="$pdfFile" $file
         done

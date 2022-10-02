@@ -3,9 +3,8 @@
 ### IMPORTANT!!!
 ### Keep this file in sync with action.yml
 
-primerSpecFiles=$(grep -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html)
-
-for file in $primerSpecFiles; do
+grep -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html | while read -r file
+do
   relativePath=${file#_site/}
   pdfFile="_site/assets/primer-spec-pdf/${relativePath%.html}.pdf"
   pdfFileDir=${pdfFile%/*}
@@ -13,5 +12,5 @@ for file in $primerSpecFiles; do
   echo "Dest: $pdfFile"
   echo ""
   mkdir -p $pdfFileDir
-  chrome --headless --print-to-pdf="$pdfFile" $file
+  chrome --headless --run-all-compositor-stages-before-draw --print-to-pdf-no-header="$pdfFile" $file
 done
