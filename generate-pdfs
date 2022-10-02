@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+### IMPORTANT!!!
+### Keep this file in sync with action.yml
+
 primerSpecFiles=$(grep -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html)
 
 for file in $primerSpecFiles; do

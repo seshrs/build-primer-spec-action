@@ -29,5 +29,16 @@ runs:
     # Generate PDFs for each Primer Spec HTML page in _site/
     - name: 📑 Generate PDFs
       shell: bash
+      # Keep this in sync with ./generate-pdfs
       run: |
-        ./generate-pdfs
+        primerSpecFiles=$(grep -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html)
+        for file in $primerSpecFiles; do
+          relativePath=${file#_site/}
+          pdfFile="_site/assets/primer-spec-pdf/${relativePath%.html}.pdf"
+          pdfFileDir=${pdfFile%/*}
+          echo "Source: $file"
+          echo "Dest: $pdfFile"
+          echo ""
+          mkdir -p $pdfFileDir
+          chrome --headless --print-to-pdf="$pdfFile" $file
+        done
