@@ -40,5 +40,5 @@ runs:
           echo "Dest: $pdfFile"
           echo ""
           mkdir -p $pdfFileDir
-          chrome --headless --run-all-compositor-stages-before-draw --print-to-pdf-no-header="$pdfFile" $file
+          chrome --headless --disable-gpu --run-all-compositor-stages-before-draw --print-to-pdf-no-header --print-to-pdf=="$pdfFile" $file
         done
