@@ -35,13 +35,18 @@ runs:
         grep -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html | while read -r file
         do
           relativePath=${file#_site/}
-          pdfFile="_site/assets/primer-spec-pdf/${relativePath%.html}.pdf"
+          pdfFile="assets/primer-spec-pdf/${relativePath%.html}.pdf"
           pdfFileDir=${pdfFile%/*}
           echo "Source: $file"
           echo "Dest: $pdfFile"
           echo "In directory: $pdfFileDir"
           echo ""
           mkdir -p $pdfFileDir
-          chrome --headless --disable-gpu --run-all-compositor-stages-before-draw --virtual-time-budget=1000 --print-to-pdf-no-header --print-to-pdf="$pdfFile" $file
+          chrome --headless --disable-gpu --disable-software-rasterizer --run-all-compositor-stages-before-draw --virtual-time-budget=1000 --print-to-pdf-no-header --print-to-pdf="$pdfFile" $file
         done
         echo "::endgroup::"
+
+    - name: 🛠 Build Jekyll site
+      uses: limjh16/jekyll-action-ts@v2
+      with:
+        enable_cache: true
