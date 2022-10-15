@@ -35,7 +35,7 @@ runs:
         grep -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html | while read -r file
         do
           relativePath=${file#_site/}
-          pdfFile="assets/primer-spec-pdf/${relativePath%.html}.pdf"
+          pdfFile="_site/assets/primer-spec-pdf/${relativePath%.html}.pdf"
           pdfFileDir=${pdfFile%/*}
           echo "Source: $file"
           echo "Dest: $pdfFile"
@@ -45,8 +45,3 @@ runs:
           chrome --headless --disable-gpu --disable-software-rasterizer --run-all-compositor-stages-before-draw --virtual-time-budget=1000 --print-to-pdf-no-header --print-to-pdf="$pdfFile" $file
         done
         echo "::endgroup::"
-        # DEBUG: Nuke the _site directory and rebuild
-        rm -r _site
-
-    - name: 🛠 Build Jekyll site
-      uses: limjh16/jekyll-action-ts@v2
