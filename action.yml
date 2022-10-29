@@ -11,6 +11,16 @@ runs:
       with:
         ruby-version: "3.0"
 
+    # If a baseurl isn't specified, GitHub Pages + GitHub Actions appears to
+    # use "pages" as the default.
+    # This step draws inspiration from the starter-action that also sets the
+    # baseurl:
+    # https://github.com/actions/starter-workflows/blob/5e60d02759829e0e27db87bd924ea5b45dd8503d/pages/jekyll.yml#L46
+    - name: Specify Jekyll baseurl
+      run: |
+        config_path="$(find . -name "_config.yml" | head -n 1)"
+        echo "baseurl: ${{ steps.pages.outputs.base_path }}" >> $config_path
+
     # Build the Jekyll site. This GH action from the marketplace is
     # indirectly endorsed by Jekyll, and simply builds the Jekyll site
     # without deploying it. The Jekyll build output is placed in an `_site/`
