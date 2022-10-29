@@ -19,7 +19,8 @@ runs:
     - name: Specify Jekyll baseurl
       shell: bash
       run: |
-        config_path="$(find . -name "_config.yml" | head -n 1)"
+        config_path="$(find . -name '_config.yml' | head -n 1)"
+        echo "Found config file: $config_path"
         echo "baseurl: ${{ steps.pages.outputs.base_path }}" >> $config_path
 
     # Build the Jekyll site. This GH action from the marketplace is
