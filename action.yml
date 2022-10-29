@@ -27,7 +27,7 @@ runs:
       env:
         BASE_PATH: ${{ steps.pages.outputs.base_path }}
       run: |
-        config_path="$(find . -name '_config.yml' | head -n 1)"
+        config_path="$(find . -name '_config.yml' -not -path './vendor/*' | head -n 1)"
         echo "Found config file: $config_path"
         echo "Using baseurl: $BASE_PATH"
         echo "baseurl: $BASE_PATH" >> $config_path
