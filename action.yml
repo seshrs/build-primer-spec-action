@@ -68,5 +68,8 @@ runs:
           # so GitHub Pages is unable to read the file.
           # HUGE thanks to Arthur from GitHub Support for figuring this out! ❤️
           chmod a+r $pdfFile
+          # Update the corresponding HTML file so Primer Spec knows that a PDF is
+          # available.
+          sed -i 's=pdfAvailable:.*// @managed by build-primer-spec-action=pdfAvailable: true // @managed by build-primer-spec-action=' $file
         done
         echo "::endgroup::"
