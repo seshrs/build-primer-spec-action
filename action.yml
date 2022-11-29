@@ -91,7 +91,7 @@ runs:
           echo "In directory: $pdfFileDir"
           echo ""
           mkdir -p $pdfFileDir
-          chrome --headless --disable-gpu --disable-software-rasterizer --run-all-compositor-stages-before-draw --virtual-time-budget=1000 --print-to-pdf-no-header --print-to-pdf="$pdfFile" $file
+          chrome --headless --disable-gpu --disable-software-rasterizer --run-all-compositor-stages-before-draw --virtual-time-budget=3000 --print-to-pdf-no-header --print-to-pdf="$pdfFile" $file
           # Chrome appears to provide r/w permissions only to the `user/owner` group,
           # so GitHub Pages is unable to read the file.
           # HUGE thanks to Arthur from GitHub Support for figuring this out! ❤️
