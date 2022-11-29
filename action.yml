@@ -9,16 +9,20 @@ inputs:
       Use this when you want to customize the Jekyll build (but still perform
       PDF generation).
     required: false
-    default: true
-    type: boolean
+    default: "true"
+    # Weird bug: In Composite Actions, GitHub treats booleans as strings. To
+    # avoid confusion, I'm just going to use string inputs — only 'true' is
+    # truthy in this Action, any other input is falsy.
+    # https://github.com/actions/runner/issues/1483
+    type: string
   configure_github_pages:
     description: |
       WARNING: If you're not sure if you need this, you probably don't. Simply
       don't provide this value and use the default.
       If set to false, this action will not attempt to use
       `actions/configure-pages`. Use this when
-    require: false
-    default: true
+    required: false
+    default: "true"
     type: boolean
 runs:
   using: "composite"
@@ -27,7 +31,7 @@ runs:
     # official GH action provided by Ruby.
     # Docs: https://github.com/ruby/setup-ruby
     - name: 💎 Setup Ruby
-      if: ${{ inputs.build_jekyll_site }}
+      if: ${{ inputs.build_jekyll_site == 'true' }}
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: "3.0"
@@ -36,7 +40,7 @@ runs:
 
     - name: Setup Pages
       id: pages
-      if: ${{ inputs.configure_github_pages }}
+      if: ${{ inputs.configure_github_pages == 'true' }}
       uses: actions/configure-pages@v2
 
     # If a baseurl isn't specified, GitHub Pages + GitHub Actions appears to
@@ -45,7 +49,7 @@ runs:
     # baseurl:
     # https://github.com/actions/starter-workflows/blob/5e60d02759829e0e27db87bd924ea5b45dd8503d/pages/jekyll.yml#L46
     - name: Specify Jekyll baseurl
-      if: ${{ inputs.build_jekyll_site }}
+      if: ${{ inputs.build_jekyll_site == 'true' }}
       shell: bash
       env:
         BASE_PATH: ${{ steps.pages.outputs.base_path }}
@@ -61,7 +65,7 @@ runs:
     # directory.
     # Docs: https://github.com/limjh16/jekyll-action-ts
     - name: 🛠 Build Jekyll site
-      if: ${{ inputs.build_jekyll_site }}
+      if: ${{ inputs.build_jekyll_site == 'true' }}
       uses: limjh16/jekyll-action-ts@v2
       with:
         enable_cache: true
