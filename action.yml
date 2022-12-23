@@ -90,6 +90,9 @@ runs:
       # Keep this in sync with ./generate-pdfs
       run: |
         echo "::group::Creating PDFs"
+        echo "List of files:"
+        grep -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html | cat
+        echo "Generating PDFs..."
         grep -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html | while read -r file
         do
           relativePath=${file#_site/}
@@ -112,6 +115,5 @@ runs:
           echo "Updating the corresponding HTML file to include PDF path: ${pdfFile#_site/}"
           sed -i "s=pdfPath:.*// @managed by build-primer-spec-action=pdfPath: '${pdfFile#_site/}', // @managed by build-primer-spec-action=" $file
           echo "Done."
-          echo ""
         done
         echo "::endgroup::"
