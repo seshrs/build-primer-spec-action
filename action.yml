@@ -100,13 +100,18 @@ runs:
           echo "In directory: $pdfFileDir"
           echo ""
           mkdir -p $pdfFileDir
+          echo "Writing to $pdfFile..."
           chrome --headless --disable-gpu --disable-software-rasterizer --run-all-compositor-stages-before-draw --virtual-time-budget=3000 --print-to-pdf-no-header --print-to-pdf="$pdfFile" $file
           # Chrome appears to provide r/w permissions only to the `user/owner` group,
           # so GitHub Pages is unable to read the file.
           # HUGE thanks to Arthur from GitHub Support for figuring this out! ❤️
+          echo "Making the PDF readable to GitHub Pages..."
           chmod a+r $pdfFile
           # Update the corresponding HTML file so Primer Spec knows that a PDF is
           # available.
+          echo "Updating the corresponding HTML file to include PDF path: ${pdfFile#_site/}"
           sed -i "s=pdfPath:.*// @managed by build-primer-spec-action=pdfPath: '${pdfFile#_site/}', // @managed by build-primer-spec-action=" $file
+          echo "Done."
+          echo ""
         done
         echo "::endgroup::"
