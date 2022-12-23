@@ -7,9 +7,9 @@
 # Docs: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#grouping-log-lines
 echo "::group::Creating PDFs"
 echo "List of files:"
-grep -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html | cat
+grep -s -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html | cat
 echo "Generating PDFs..."
-grep -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html | while read -r file
+grep -s -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html | while read -r file
 do
   relativePath=${file#_site/}
   pdfFile="_site/assets/primer-spec-pdf/${relativePath%.html}.pdf"
