@@ -1,6 +1,13 @@
 name: "Build Primer Spec"
 description: "Build a Primer Spec website using Jekyll. The output is placed in a directory '_site/'."
 inputs:
+  generate_pdfs:
+    description: |
+      If set to "false", this action will not generate PDF versions of every
+      page.
+    required: false
+    default: "true"
+    type: string
   build_jekyll_site:
     description: |
       WARNING: If you're not sure if you need this, you probably don't. Simply
@@ -73,10 +80,12 @@ runs:
     # Install Chromedriver. We'll use this to generate PDFs.
     # Docs: https://github.com/browser-actions/setup-chrome
     - name: 🕸 Setup Chromedriver
+      if: ${{ inputs.generate_pdfs == 'true' }}
       uses: browser-actions/setup-chrome@latest
 
     # Generate PDFs for each Primer Spec HTML page in _site/
     - name: 📑 Generate PDFs
+      if: ${{ inputs.generate_pdfs == 'true' }}
       shell: bash
       # Keep this in sync with ./generate-pdfs
       run: |
