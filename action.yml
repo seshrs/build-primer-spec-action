@@ -89,6 +89,12 @@ runs:
       shell: bash
       # Keep this in sync with ./generate-pdfs
       run: |
+        # Ignore failures due to grep when piped.
+        # https://stackoverflow.com/a/11231970/5868796
+        set +o pipefail
+
+        # These are magic workflow commands for GitHub Actions
+        # Docs: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#grouping-log-lines
         echo "::group::Creating PDFs"
         echo "List of files:"
         grep -s -l "window\.PrimerSpecConfig" _site/**/*.html _site/*.html | cat

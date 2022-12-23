@@ -3,6 +3,10 @@
 ### IMPORTANT!!!
 ### Keep this file in sync with action.yml
 
+# Ignore failures due to grep when piped.
+# https://stackoverflow.com/a/11231970/5868796
+set +o pipefail
+
 # These are magic workflow commands for GitHub Actions
 # Docs: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#grouping-log-lines
 echo "::group::Creating PDFs"
