@@ -52,6 +52,10 @@ jobs:
       # Docs: https://github.com/seshrs/build-primer-spec-action
       - name: 🛠 Build Primer Spec website
         uses: seshrs/build-primer-spec-action@v1
+        # Uncomment the following lines to prevent generating PDF versions of
+        # each page.
+        # with:
+        #   generate_pdfs: false
 
       # Upload the _site directory created in the above step for use by
       # GitHub Pages.
