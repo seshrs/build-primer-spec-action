@@ -82,6 +82,8 @@ runs:
     - name: 🕸 Setup Chromedriver
       if: ${{ inputs.generate_pdfs == 'true' }}
       uses: browser-actions/setup-chrome@latest
+      with:
+        chrome-version: stable
 
     # Generate PDFs for each Primer Spec HTML page in _site/
     - name: 📑 Generate PDFs
