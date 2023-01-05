@@ -55,16 +55,19 @@ runs:
     # This step draws inspiration from the starter-action that also sets the
     # baseurl:
     # https://github.com/actions/starter-workflows/blob/5e60d02759829e0e27db87bd924ea5b45dd8503d/pages/jekyll.yml#L46
-    - name: Specify Jekyll baseurl
+    - name: Specify Jekyll url and baseurl
       if: ${{ inputs.build_jekyll_site == 'true' }}
       shell: bash
       env:
         BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        ORIGIN: ${{ steps.pages.outputs.origin }}
       run: |
         config_path="$(find . -name '_config.yml' -not -path './vendor/*' | head -n 1)"
         echo "Found config file: $config_path"
         echo "Using baseurl: $BASE_PATH"
         echo "baseurl: $BASE_PATH" >> $config_path
+        echo "Using url: $ORIGIN"
+        echo "url: $ORIGIN" >> $config_path
 
     # Build the Jekyll site. This GH action from the marketplace is
     # indirectly endorsed by Jekyll, and simply builds the Jekyll site
