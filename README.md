@@ -61,7 +61,7 @@ jobs:
       # GitHub Pages.
       # Docs: https://github.com/actions/upload-pages-artifact
       - name: 🏺 Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
 
   # (2) Deploy job
   deploy:
@@ -73,7 +73,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
 ```
 3. Go to your repository's *"Settings"* Page. Click *"Pages"* in the sidebar. Under *"Build & Deployment"*, click on the *"Source"* dropdown. Choose ***"GitHub Actions"***.
 
